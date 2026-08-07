@@ -1,954 +1,1073 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Luck Flight — Live Round</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-512.png" type="image/png">
-<style>
-  :root{
-    --bg: #050505;
-    --panel: #0a0a0a;
-    --panel-2: #0f0d08;
-    --border: rgba(245,190,80,0.18);
-    --grid-line: rgba(245,190,80,0.05);
-    --text: #f2ede1;
-    --text-dim: #8a8270;
-    --text-faint: #4a4638;
-    --gold-1: #ffe49a;
-    --gold-2: #f4b942;
-    --gold-3: #c8871a;
-    --blue: #2e9bff;
-    --blue-dim: #0891b2;
-    --purple: #a855f7;
-    --purple-dim: #7c3aed;
-    --pink: #ff2d78;
-    --red: #ff3b3b;
-    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Luck Flight — Live Round</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-512.png" type="image/png">
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #0a0a0a;
+      --panel-2: #0f0d08;
+      --border: rgba(245, 190, 80, 0.18);
+      --grid-line: rgba(245, 190, 80, 0.05);
+      --text: #f2ede1;
+      --text-dim: #8a8270;
+      --text-faint: #4a4638;
+      --gold-1: #ffe49a;
+      --gold-2: #f4b942;
+      --gold-3: #c8871a;
+      --blue: #2e9bff;
+      --blue-dim: #0891b2;
+      --purple: #a855f7;
+      --purple-dim: #7c3aed;
+      --pink: #ff2d78;
+      --red: #ff3b3b;
+      --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-  *{ box-sizing: border-box; margin:0; padding:0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  html, body{
-    height:100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    overflow: hidden;
-  }
+    html,
+    body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow: hidden;
+    }
 
-  body{
-    display:flex;
-    justify-content:center;
-    padding: 0;
-  }
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
 
-  .app{
-    position:relative;
-    width:100%;
-    max-width: 480px;
-    height: 100dvh;
-    display:flex;
-    flex-direction:column;
-    gap: 6px;
-    padding: 8px 10px 10px;
-  }
+    .app {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 10px 10px;
+    }
 
-  /* ---------- Logo ---------- */
-  .logo{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-top: 2px;
-    user-select:none;
-  }
+    /* ---------- Logo ---------- */
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2px;
+      user-select: none;
+    }
 
-  .logo-row{
-    display:flex;
-    align-items:center;
-    gap: 8px;
-  }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+    }
 
-  .wing{ display:block; filter: drop-shadow(0 0 6px rgba(244,185,66,0.45)); }
-  .wing.right{ transform: scaleX(-1); }
+    .wing {
+      display: block;
+      filter: drop-shadow(0 0 6px rgba(244, 185, 66, 0.45));
+    }
 
-  .logo-luck{
-    font-family: var(--sans);
-    font-weight: 900;
-    font-style: italic;
-    font-size: clamp(28px, 9vw, 38px);
-    letter-spacing: 1px;
-    line-height: 1;
-    background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 12px rgba(244,185,66,0.5));
-  }
+    .wing.right {
+      transform: scaleX(-1);
+    }
 
-  .logo-flight{
-    font-weight: 800;
-    font-size: clamp(12px, 3.4vw, 15px);
-    letter-spacing: 4px;
-    color: #f6f3ea;
-    margin-top: 1px;
-  }
+    .logo-luck {
+      font-family: var(--sans);
+      font-weight: 900;
+      font-style: Bold;
+      font-size: clamp(28px, 9vw, 38px);
+      letter-spacing: 1px;
+      line-height: 1;
+      background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 12px rgba(244, 185, 66, 0.5));
+    }
 
-  /* ---------- decorative connectors above/below the frame ---------- */
-  .frame-deco{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap: 8px;
-    padding: 0;
-  }
-  .deco-line{
-    flex: 1 1 auto;
-    max-width: 120px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(244,185,66,0.5), transparent);
-  }
-  .deco-dot{
-    width: 4px; height:4px;
-    border-radius: 50%;
-    background: var(--gold-2);
-    box-shadow: 0 0 8px rgba(244,185,66,0.8);
-    flex: 0 0 auto;
-  }
+    .logo-flight {
+      font-weight: 800;
+      font-size: clamp(12px, 3.4vw, 15px);
+      letter-spacing: 4px;
+      color: #f6f3ea;
+      margin-top: 1px;
+    }
 
-  /* ---------- Main game frame ---------- */
-  .panel{
-    position:relative;
-    background: radial-gradient(circle at 30% 15%, var(--panel-2), var(--panel) 70%);
-    border: 1.5px solid rgba(244,185,66,0.55);
-    border-radius: 22px;
-    overflow: hidden;
-    aspect-ratio: 4 / 3;
-    box-shadow:
-      0 0 0 1px rgba(244,185,66,0.12),
-      0 0 26px rgba(244,185,66,0.22),
-      inset 0 0 40px rgba(244,185,66,0.06);
-  }
+    /* ---------- decorative connectors above/below the frame ---------- */
+    .frame-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0;
+    }
 
-  .corner{
-    position:absolute;
-    width: 22px; height: 22px;
-    border-color: rgba(255,228,154,0.9);
-    z-index:3;
-    filter: drop-shadow(0 0 5px rgba(244,185,66,0.7));
-  }
-  .corner.tl{ top:10px; left:10px; border-top:2px solid; border-left:2px solid; border-radius: 8px 0 0 0; }
-  .corner.tr{ top:10px; right:10px; border-top:2px solid; border-right:2px solid; border-radius: 0 8px 0 0; }
-  .corner.bl{ bottom:10px; left:10px; border-bottom:2px solid; border-left:2px solid; border-radius: 0 0 0 8px; }
-  .corner.br{ bottom:10px; right:10px; border-bottom:2px solid; border-right:2px solid; border-radius: 0 0 8px 0; }
+    .deco-line {
+      flex: 1 1 auto;
+      max-width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(244, 185, 66, 0.5), transparent);
+    }
 
-  canvas{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    display:block;
-  }
+    .deco-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold-2);
+      box-shadow: 0 0 8px rgba(244, 185, 66, 0.8);
+      flex: 0 0 auto;
+    }
 
-  .overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    pointer-events:none;
-    z-index:2;
-    text-align:center;
-  }
+    /* ---------- Main game frame ---------- */
+    .panel {
+      position: relative;
+      background: radial-gradient(circle at 30% 15%, var(--panel-2), var(--panel) 70%);
+      border: 1.5px solid rgba(244, 185, 66, 0.55);
+      border-radius: 22px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      box-shadow:
+        0 0 0 1px rgba(244, 185, 66, 0.12),
+        0 0 26px rgba(244, 185, 66, 0.22),
+        inset 0 0 40px rgba(244, 185, 66, 0.06);
+    }
 
-  .value{
-    font-family: var(--mono);
-    font-weight: 800;
-    font-size: clamp(32px, 9vw, 52px);
-    letter-spacing: 0.5px;
-    color: var(--text);
-    text-shadow: 0 0 24px rgba(46,155,255,0.35);
-    transition: color .15s ease;
-  }
+    .corner {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-color: rgba(255, 228, 154, 0.9);
+      z-index: 3;
+      filter: drop-shadow(0 0 5px rgba(244, 185, 66, 0.7));
+    }
 
-  .value.tier-mid{ text-shadow: 0 0 28px rgba(168,85,247,0.45); }
-  .value.tier-high{ text-shadow: 0 0 30px rgba(255,45,120,0.5); }
-  .value.crashed{
-    color: var(--red);
-    text-shadow: 0 0 30px rgba(255,59,59,0.55);
-  }
+    .corner.tl {
+      top: 10px;
+      left: 10px;
+      border-top: 2px solid;
+      border-left: 2px solid;
+      border-radius: 8px 0 0 0;
+    }
 
-  .status-line{
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    display:flex;
-    align-items:center;
-    gap: 10px;
-  }
+    .corner.tr {
+      top: 10px;
+      right: 10px;
+      border-top: 2px solid;
+      border-right: 2px solid;
+      border-radius: 0 8px 0 0;
+    }
 
-  .status-line .flew{
-    color: var(--red);
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
+    .corner.bl {
+      bottom: 10px;
+      left: 10px;
+      border-bottom: 2px solid;
+      border-left: 2px solid;
+      border-radius: 0 0 0 8px;
+    }
 
-  .status-line svg{ display:block; }
+    .corner.br {
+      bottom: 10px;
+      right: 10px;
+      border-bottom: 2px solid;
+      border-right: 2px solid;
+      border-radius: 0 0 8px 0;
+    }
 
-  .big-countdown-wrap{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap: 4px;
-  }
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
-  .overlay.is-countdown .big-countdown-wrap{ display:flex; }
-  .overlay.is-countdown .value{ display:none; }
-  .overlay.is-countdown .status-line{ display:none; }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 2;
+      text-align: center;
+    }
 
-  .countdown-label{
-    font-size: clamp(11px, 2.6vw, 15px);
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold-2);
-  }
+    .value {
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: clamp(32px, 9vw, 52px);
+      letter-spacing: 0.5px;
+      color: var(--text);
+      text-shadow: 0 0 24px rgba(46, 155, 255, 0.35);
+      transition: color .15s ease;
+    }
 
-  .big-countdown{
-    font-family: var(--mono);
-    font-weight: 900;
-    font-size: clamp(90px, 32vw, 190px);
-    line-height: 0.88;
-    background: linear-gradient(180deg, var(--gold-1), var(--gold-2) 55%, var(--gold-3));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 0 30px rgba(244,185,66,0.55));
-  }
+    .value.tier-mid {
+      text-shadow: 0 0 28px rgba(168, 85, 247, 0.45);
+    }
 
-  /* ---------- History bar ---------- */
-  .history{
-    display:flex;
-    gap:5px;
-    overflow-x:auto;
-    padding: 0;
-    scrollbar-width: none;
-  }
-  .history::-webkit-scrollbar{ display:none; }
+    .value.tier-high {
+      text-shadow: 0 0 30px rgba(255, 45, 120, 0.5);
+    }
 
-  .chip{
-    flex: 0 0 auto;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 7px;
-    border-radius: 6px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    white-space: nowrap;
-    animation: chipIn .35s ease;
-  }
+    .value.crashed {
+      color: var(--red);
+      text-shadow: 0 0 30px rgba(255, 59, 59, 0.55);
+    }
 
-  @keyframes chipIn{
-    from{ opacity:0; transform: translateX(-8px) scale(.9); }
-    to{ opacity:1; transform: translateX(0) scale(1); }
-  }
+    .status-line {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-  .chip.tier-low{ color: var(--blue); border-color: rgba(46,155,255,0.25); background: rgba(46,155,255,0.06); }
-  .chip.tier-mid{ color: var(--purple); border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.07); }
-  .chip.tier-high{ color: var(--pink); border-color: rgba(255,45,120,0.35); background: rgba(255,45,120,0.08); }
+    .status-line .flew {
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  /* ---------- Gift power section ---------- */
-  .gift-section{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap: 8px;
-    padding-top: 0;
-  }
+    .status-line svg {
+      display: block;
+    }
 
-  .gift-label{
-    display:flex;
-    align-items:center;
-    gap: 8px;
-    padding: 5px 14px;
-    border: 1px solid rgba(244,185,66,0.55);
-    border-radius: 4px;
-    clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--gold-1);
-    background: rgba(244,185,66,0.06);
-  }
+    .big-countdown-wrap {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
 
-  .gift-dash{
-    width: 12px;
-    height: 1px;
-    background: repeating-linear-gradient(90deg, var(--gold-2) 0 3px, transparent 3px 6px);
-  }
+    .overlay.is-countdown .big-countdown-wrap {
+      display: flex;
+    }
 
-  .gift-row{
-    display:flex;
-    justify-content:space-between;
-    gap: 4px;
-    width: 100%;
-  }
+    .overlay.is-countdown .value {
+      display: none;
+    }
 
-  .gift-card{
-    flex: 1 1 0;
-    min-width: 0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap: 3px;
-    padding: 6px 2px 7px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-  }
+    .overlay.is-countdown .status-line {
+      display: none;
+    }
 
-  .gift-icon-wrap{
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+    .countdown-label {
+      font-size: clamp(11px, 2.6vw, 15px);
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-2);
+    }
 
-  .gift-icon-wrap svg{ width: 17px; height: 17px; }
+    .big-countdown {
+      font-family: var(--mono);
+      font-weight: 900;
+      font-size: clamp(90px, 32vw, 190px);
+      line-height: 0.88;
+      background: linear-gradient(180deg, var(--gold-1), var(--gold-2) 55%, var(--gold-3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 30px rgba(244, 185, 66, 0.55));
+    }
 
-  .gift-name{
-    font-size: 7.5px;
-    font-weight: 600;
-    color: #ece7da;
-    text-align:center;
-    line-height: 1.15;
-    max-width: 100%;
-  }
+    /* ---------- History bar ---------- */
+    .history {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding: 0;
+      scrollbar-width: none;
+    }
 
-  .gift-value{
-    font-family: var(--mono);
-    font-weight: 800;
-    font-size: 10.5px;
-  }
+    .history::-webkit-scrollbar {
+      display: none;
+    }
 
-  /* ---------- Footer readout ---------- */
-  .readout{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding: 0 2px;
-  }
+    .chip {
+      flex: 0 0 auto;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 7px;
+      border-radius: 6px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      animation: chipIn .35s ease;
+    }
 
-  .readout-item{
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-  }
+    @keyframes chipIn {
+      from {
+        opacity: 0;
+        transform: translateX(-8px) scale(.9);
+      }
 
-  .readout-label{
-    font-size: 9px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
 
-  .readout-val{
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-dim);
-  }
+    .chip.tier-low {
+      color: var(--blue);
+      border-color: rgba(46, 155, 255, 0.25);
+      background: rgba(46, 155, 255, 0.06);
+    }
 
-  .phase-track{
-    display:flex;
-    gap:4px;
-  }
+    .chip.tier-mid {
+      color: var(--purple);
+      border-color: rgba(168, 85, 247, 0.3);
+      background: rgba(168, 85, 247, 0.07);
+    }
 
-  .phase-dot{
-    width: 22px;
-    height: 3px;
-    border-radius: 2px;
-    background: var(--border);
-    transition: background .2s ease;
-  }
-  .phase-dot.active{ background: var(--gold-2); box-shadow: 0 0 6px var(--gold-2); }
-</style>
+    .chip.tier-high {
+      color: var(--pink);
+      border-color: rgba(255, 45, 120, 0.35);
+      background: rgba(255, 45, 120, 0.08);
+    }
+
+    /* ---------- Gift power section ---------- */
+    .gift-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding-top: 0;
+    }
+
+    .gift-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border: 1px solid rgba(244, 185, 66, 0.55);
+      border-radius: 4px;
+      clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--gold-1);
+      background: rgba(244, 185, 66, 0.06);
+    }
+
+    .gift-dash {
+      width: 12px;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, var(--gold-2) 0 3px, transparent 3px 6px);
+    }
+
+    .gift-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .gift-card {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 2px 7px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .gift-icon-wrap {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gift-icon-wrap svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .gift-name {
+      font-size: 7.5px;
+      font-weight: 600;
+      color: #ece7da;
+      text-align: center;
+      line-height: 1.15;
+      max-width: 100%;
+    }
+
+    .gift-value {
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 10.5px;
+    }
+
+    /* ---------- Footer readout ---------- */
+    .readout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2px;
+    }
+
+    .readout-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .readout-label {
+      font-size: 9px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .readout-val {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    .phase-track {
+      display: flex;
+      gap: 4px;
+    }
+
+    .phase-dot {
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      transition: background .2s ease;
+    }
+
+    .phase-dot.active {
+      background: var(--gold-2);
+      box-shadow: 0 0 6px var(--gold-2);
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="app">
+  <div class="app">
 
-  <div class="logo">
-    <div class="logo-row">
-      <svg class="wing" width="52" height="30" viewBox="0 0 52 30" fill="none">
-        <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad1)"/>
-        <defs>
-          <linearGradient id="wingGrad1" x1="0" y1="0" x2="52" y2="0">
-            <stop offset="0" stop-color="#c8871a"/>
-            <stop offset="0.5" stop-color="#f4b942"/>
-            <stop offset="1" stop-color="#ffe49a"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="logo-luck">LUCK</div>
-      <svg class="wing right" width="52" height="30" viewBox="0 0 52 30" fill="none">
-        <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad2)"/>
-        <defs>
-          <linearGradient id="wingGrad2" x1="0" y1="0" x2="52" y2="0">
-            <stop offset="0" stop-color="#c8871a"/>
-            <stop offset="0.5" stop-color="#f4b942"/>
-            <stop offset="1" stop-color="#ffe49a"/>
-          </linearGradient>
-        </defs>
-      </svg>
+    <div class="logo">
+      <div class="logo-row">
+        <svg class="wing" width="52" height="30" viewBox="0 0 52 30" fill="none">
+          <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad1)" />
+          <defs>
+            <linearGradient id="wingGrad1" x1="0" y1="0" x2="52" y2="0">
+              <stop offset="0" stop-color="#c8871a" />
+              <stop offset="0.5" stop-color="#f4b942" />
+              <stop offset="1" stop-color="#ffe49a" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="logo-luck"></br>LUCK</div>
+        <svg class="wing right" width="52" height="30" viewBox="0 0 52 30" fill="none">
+          <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad2)" />
+          <defs>
+            <linearGradient id="wingGrad2" x1="0" y1="0" x2="52" y2="0">
+              <stop offset="0" stop-color="#c8871a" />
+              <stop offset="0.5" stop-color="#f4b942" />
+              <stop offset="1" stop-color="#ffe49a" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="logo-flight">FLIGHT</div>
     </div>
-    <div class="logo-flight">FLIGHT</div>
+
+    <div class="frame-deco">
+      <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
+    </div>
+
+    <div class="panel" id="panel">
+      <canvas id="canvas"></canvas>
+
+      <div class="overlay" id="overlay">
+        <div class="big-countdown-wrap">
+          <div class="countdown-label">NEXT ROUND IN</div>
+          <div class="big-countdown" id="bigCountdown">5</div>
+        </div>
+        <div class="value" id="valueText">1.00x</div>
+        <div class="status-line" id="statusLine">
+          <span>IN FLIGHT</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frame-deco">
+      <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
+    </div>
+
+    <div class="history" id="history"></div>
+
+    <div class="gift-section">
+      <div class="gift-label"><span class="gift-dash"></span>CHOOSE GIFT POWER<span class="gift-dash"></span></div>
+
+      <div class="gift-row" id="giftRow">
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(34,197,94,0.14);">
+            <img src="gift/rose.webp" alt="Rose" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">Rose</div>
+          <div class="gift-value" style="color:#22c55e;">1.5x</div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(34,211,238,0.14);">
+            <img src="gift/tiktok.webp" alt="TikTok" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">TikTok</div>
+          <div class="gift-value" style="color:#22d3ee;">2x</div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(236,72,153,0.14);">
+            <img src="gift/heartMe.webp" alt="Heart Me" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">Heart Me</div>
+          <div class="gift-value" style="color:#ec4899;">3x</div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(168,85,247,0.14);">
+            <img src="gift/donut.webp" alt="Donut" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">Donut</div>
+          <div class="gift-value" style="color:#a855f7;">5x</div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(249,115,22,0.14);">
+            <img src="gift/fingerHeart.webp" alt="Finger Heart" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">Finger Heart</div>
+          <div class="gift-value" style="color:#f97316;">8x</div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon-wrap" style="background:rgba(234,179,8,0.14);">
+            <img src="gift/lion.webp" alt="Lion" style="width: 26px; height: 26px;">
+          </div>
+          <div class="gift-name">Lion</div>
+          <div class="gift-value" style="color:#eab308;">25x</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="readout-item">
+        <div class="readout-val" id="roundNum">#1</div>
+      </div>
+      <div class="phase-track">
+        <div class="phase-dot" id="dotCountdown"></div>
+        <div class="phase-dot" id="dotFlight"></div>
+        <div class="phase-dot" id="dotResult"></div>
+      </div>
+      <div class="readout-item" style="align-items:flex-end;">
+        <div class="readout-label">Best This Session</div>
+        <div class="readout-val" id="bestVal">—</div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="frame-deco">
-    <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
-  </div>
+  <script>
+    (function () {
+      "use strict";
 
-  <div class="panel" id="panel">
-    <canvas id="canvas"></canvas>
+      // ---------- DOM ----------
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const panel = document.getElementById('panel');
+      const valueText = document.getElementById('valueText');
+      const statusLine = document.getElementById('statusLine');
+      const overlayEl = document.getElementById('overlay');
+      const bigCountdownEl = document.getElementById('bigCountdown');
+      const historyEl = document.getElementById('history');
+      const roundNumEl = document.getElementById('roundNum');
+      const bestValEl = document.getElementById('bestVal');
+      const dotCountdown = document.getElementById('dotCountdown');
+      const dotFlight = document.getElementById('dotFlight');
+      const dotResult = document.getElementById('dotResult');
 
-    <div class="overlay" id="overlay">
-      <div class="big-countdown-wrap">
-        <div class="countdown-label">NEXT ROUND IN</div>
-        <div class="big-countdown" id="bigCountdown">5</div>
-      </div>
-      <div class="value" id="valueText">1.00x</div>
-      <div class="status-line" id="statusLine">
-        <span>IN FLIGHT</span>
-      </div>
-    </div>
-  </div>
+      // ---------- constants ----------
+      const PHASE = { COUNTDOWN: 'countdown', FLIGHT: 'flight', RESULT: 'result' };
+      const COUNTDOWN_SECONDS = 5;
+      const RESULT_HOLD_MS = 2000;
+      const GROWTH_RATE = 0.16; // controls how fast the score climbs
+      const VISUAL_MAX_VALUE = 100; // value that maps to the far edge of the panel on a log scale
 
-  <div class="frame-deco">
-    <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
-  </div>
+      // ---------- state ----------
+      let phase = PHASE.COUNTDOWN;
+      let phaseStart = performance.now();
+      let countdownRemaining = COUNTDOWN_SECONDS;
+      let currentValue = 1.00;
+      let exitPoint = 1.00;
+      let flightDurationMs = 0;
+      let roundIndex = 1;
+      let bestValue = null;
+      const HISTORY_KEY = "luckFlightHistory";
+      let history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+      let dpr = Math.max(1, window.devicePixelRatio || 1);
+      let w = 0, h = 0;
 
-  <div class="history" id="history"></div>
+      // trail particles behind the aircraft
+      let trail = [];
 
-  <div class="gift-section">
-    <div class="gift-label"><span class="gift-dash"></span>CHOOSE GIFT POWER<span class="gift-dash"></span></div>
-
-    <div class="gift-row" id="giftRow">
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(34,197,94,0.14);">
-          <img src="gift/rose.webp" alt="Rose" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">Rose</div>
-        <div class="gift-value" style="color:#22c55e;">1.5x</div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(34,211,238,0.14);">
-          <img src="gift/tiktok.webp" alt="TikTok" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">TikTok</div>
-        <div class="gift-value" style="color:#22d3ee;">2x</div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(236,72,153,0.14);">
-          <img src="gift/heartMe.webp" alt="Heart Me" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">Heart Me</div>
-        <div class="gift-value" style="color:#ec4899;">3x</div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(168,85,247,0.14);">
-          <img src="gift/donut.webp" alt="Donut" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">Donut</div>
-        <div class="gift-value" style="color:#a855f7;">5x</div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(249,115,22,0.14);">
-          <img src="gift/fingerHeart.webp" alt="Finger Heart" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">Finger Heart</div>
-        <div class="gift-value" style="color:#f97316;">8x</div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-icon-wrap" style="background:rgba(234,179,8,0.14);">
-          <img src="gift/lion.webp" alt="Lion" style="width: 26px; height: 26px;">
-        </div>
-        <div class="gift-name">Lion</div>
-        <div class="gift-value" style="color:#eab308;">25x</div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="readout">
-    <div class="readout-item">
-      <div class="readout-label">Round</div>
-      <div class="readout-val" id="roundNum">#1</div>
-    </div>
-    <div class="phase-track">
-      <div class="phase-dot" id="dotCountdown"></div>
-      <div class="phase-dot" id="dotFlight"></div>
-      <div class="phase-dot" id="dotResult"></div>
-    </div>
-    <div class="readout-item" style="align-items:flex-end;">
-      <div class="readout-label">Best This Session</div>
-      <div class="readout-val" id="bestVal">—</div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-(function(){
-  "use strict";
-
-  // ---------- DOM ----------
-  const canvas = document.getElementById('canvas');
-  const ctx = canvas.getContext('2d');
-  const panel = document.getElementById('panel');
-  const valueText = document.getElementById('valueText');
-  const statusLine = document.getElementById('statusLine');
-  const overlayEl = document.getElementById('overlay');
-  const bigCountdownEl = document.getElementById('bigCountdown');
-  const historyEl = document.getElementById('history');
-  const roundNumEl = document.getElementById('roundNum');
-  const bestValEl = document.getElementById('bestVal');
-  const dotCountdown = document.getElementById('dotCountdown');
-  const dotFlight = document.getElementById('dotFlight');
-  const dotResult = document.getElementById('dotResult');
-
-  // ---------- constants ----------
-  const PHASE = { COUNTDOWN:'countdown', FLIGHT:'flight', RESULT:'result' };
-  const COUNTDOWN_SECONDS = 5;
-  const RESULT_HOLD_MS = 2000;
-  const GROWTH_RATE = 0.16; // controls how fast the score climbs
-  const VISUAL_MAX_VALUE = 100; // value that maps to the far edge of the panel on a log scale
-
-  // ---------- state ----------
-  let phase = PHASE.COUNTDOWN;
-  let phaseStart = performance.now();
-  let countdownRemaining = COUNTDOWN_SECONDS;
-  let currentValue = 1.00;
-  let exitPoint = 1.00;
-  let flightDurationMs = 0;
-  let roundIndex = 1;
-  let bestValue = null;
-  let history = [];
-  let dpr = Math.max(1, window.devicePixelRatio || 1);
-  let w = 0, h = 0;
-
-  // trail particles behind the aircraft
-  let trail = [];
-
-  // ---------- helpers ----------
-  function tierOf(v){
-    if (v >= 10) return 'high';
-    if (v >= 2) return 'mid';
-    return 'low';
-  }
-
-  function tierColor(tier){
-    if (tier === 'high') return getCss('--pink');
-    if (tier === 'mid') return getCss('--purple');
-    return getCss('--blue');
-  }
-
-  let cssCache = {};
-  function getCss(varName){
-    if (cssCache[varName]) return cssCache[varName];
-    const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    cssCache[varName] = v;
-    return v;
-  }
-
-  function randomExitPoint(){
-    // Weighted random: mostly low values, occasionally very high (up to ~100+)
-    const r = Math.random();
-    let point = 0.9 / (1 - r);
-    point = Math.min(point, 100 + Math.random() * 20);
-    point = Math.max(1.01, point);
-    return Math.round(point * 100) / 100;
-  }
-
-  function formatValue(v){
-    return v.toFixed(2) + 'x';
-  }
-
-  // ---------- canvas sizing ----------
-  function resize(){
-    dpr = Math.max(1, window.devicePixelRatio || 1);
-    const rect = panel.getBoundingClientRect();
-    w = rect.width;
-    h = rect.height;
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  window.addEventListener('resize', resize);
-  window.addEventListener('orientationchange', resize);
-
-  // ---------- history bar ----------
-  function pushHistory(v){
-    history.unshift(v);
-    if (history.length > 20) history.pop();
-    renderHistory();
-  }
-
-  function renderHistory(){
-    historyEl.innerHTML = '';
-    history.forEach(v => {
-      const tier = tierOf(v);
-      const chip = document.createElement('div');
-      chip.className = 'chip tier-' + tier;
-      chip.textContent = formatValue(v);
-      historyEl.appendChild(chip);
-    });
-  }
-
-  // ---------- phase transitions ----------
-  function enterCountdown(){
-    phase = PHASE.COUNTDOWN;
-    phaseStart = performance.now();
-    countdownRemaining = COUNTDOWN_SECONDS;
-    currentValue = 1.00;
-    trail = [];
-    setDots('countdown');
-    valueText.textContent = formatValue(1.00);
-    valueText.classList.remove('crashed', 'tier-mid', 'tier-high');
-    overlayEl.classList.add('is-countdown');
-    bigCountdownEl.textContent = countdownRemaining;
-    roundNumEl.textContent = '#' + roundIndex;
-  }
-
-  function enterFlight(){
-    phase = PHASE.FLIGHT;
-    phaseStart = performance.now();
-    exitPoint = randomExitPoint();
-    flightDurationMs = (Math.log(exitPoint) / GROWTH_RATE) * 1000;
-    setDots('flight');
-    overlayEl.classList.remove('is-countdown');
-    statusLine.innerHTML = '<span>IN FLIGHT</span>';
-  }
-
-  function enterResult(){
-    phase = PHASE.RESULT;
-    phaseStart = performance.now();
-    currentValue = exitPoint;
-    valueText.textContent = formatValue(currentValue);
-    valueText.classList.add('crashed');
-    overlayEl.classList.remove('is-countdown');
-    setDots('result');
-    statusLine.innerHTML =
-      '<span class="flew"><svg width="14" height="14" viewBox="0 0 24 24" fill="none">' +
-      '<path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '</svg>FLEW AWAY!</span>';
-
-    pushHistory(currentValue);
-
-    if (bestValue === null || currentValue > bestValue){
-      bestValue = currentValue;
-      bestValEl.textContent = formatValue(bestValue);
-    }
-
-    roundIndex += 1;
-  }
-
-  function setDots(active){
-    dotCountdown.classList.toggle('active', active === 'countdown');
-    dotFlight.classList.toggle('active', active === 'flight');
-    dotResult.classList.toggle('active', active === 'result');
-  }
-
-  // ---------- update loop ----------
-  function update(now){
-    const elapsed = now - phaseStart;
-
-    if (phase === PHASE.COUNTDOWN){
-      const remaining = Math.max(0, COUNTDOWN_SECONDS - elapsed / 1000);
-      const remainingCeil = Math.ceil(remaining);
-      if (remainingCeil !== countdownRemaining && remainingCeil >= 0){
-        countdownRemaining = remainingCeil;
-        bigCountdownEl.textContent = Math.max(0, countdownRemaining);
+      // ---------- helpers ----------
+      function tierOf(v) {
+        if (v >= 10) return 'high';
+        if (v >= 2) return 'mid';
+        return 'low';
       }
-      if (elapsed >= COUNTDOWN_SECONDS * 1000){
-        enterFlight();
-      }
-    } else if (phase === PHASE.FLIGHT){
-      const progress = Math.min(1, elapsed / flightDurationMs);
-      currentValue = Math.exp(GROWTH_RATE * (elapsed / 1000));
-      currentValue = Math.min(currentValue, exitPoint);
 
-      const tier = tierOf(currentValue);
-      valueText.classList.toggle('tier-mid', tier === 'mid');
-      valueText.classList.toggle('tier-high', tier === 'high');
-      valueText.textContent = formatValue(currentValue);
-
-      if (progress >= 1){
-        enterResult();
+      function tierColor(tier) {
+        if (tier === 'high') return getCss('--pink');
+        if (tier === 'mid') return getCss('--purple');
+        return getCss('--blue');
       }
-    } else if (phase === PHASE.RESULT){
-      if (elapsed >= RESULT_HOLD_MS){
+
+      let cssCache = {};
+      function getCss(varName) {
+        if (cssCache[varName]) return cssCache[varName];
+        const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        cssCache[varName] = v;
+        return v;
+      }
+
+      function randomExitPoint() {
+        // Weighted random: mostly low values, occasionally very high (up to ~100+)
+        const r = Math.random();
+        let point = 0.9 / (1 - r);
+        point = Math.min(point, 100 + Math.random() * 20);
+        point = Math.max(1.01, point);
+        return Math.round(point * 100) / 100;
+      }
+
+      function formatValue(v) {
+        return v.toFixed(2) + 'x';
+      }
+      function saveHistory() {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      }
+
+      // ---------- canvas sizing ----------
+      function resize() {
+        dpr = Math.max(1, window.devicePixelRatio || 1);
+        const rect = panel.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resize);
+      window.addEventListener('orientationchange', resize);
+
+      // ---------- history bar ----------
+      function pushHistory(v) {
+        history.unshift({
+          round: roundIndex,
+          value: v,
+          time: Date.now()
+        });
+
+        if (history.length > 20) {
+          history.pop();
+        }
+
+        saveHistory();
+        renderHistory();
+      }
+
+      function saveHistory() {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      }
+
+      function renderHistory() {
+
+        historyEl.innerHTML = '';
+
+        history.forEach(item => {
+
+          const tier = tierOf(item.value);
+
+          const chip = document.createElement('div');
+
+          chip.className = 'chip tier-' + tier;
+
+          chip.textContent = formatValue(item.value);
+
+          historyEl.appendChild(chip);
+
+        });
+
+      }
+
+      // ---------- phase transitions ----------
+      function enterCountdown() {
+        phase = PHASE.COUNTDOWN;
+        phaseStart = performance.now();
+        countdownRemaining = COUNTDOWN_SECONDS;
+        currentValue = 1.00;
+        trail = [];
+        setDots('countdown');
+        valueText.textContent = formatValue(1.00);
+        valueText.classList.remove('crashed', 'tier-mid', 'tier-high');
+        overlayEl.classList.add('is-countdown');
+        bigCountdownEl.textContent = countdownRemaining;
+        roundNumEl.textContent = '#' + roundIndex;
+      }
+
+      function enterFlight() {
+        phase = PHASE.FLIGHT;
+        phaseStart = performance.now();
+        exitPoint = randomExitPoint();
+        flightDurationMs = (Math.log(exitPoint) / GROWTH_RATE) * 1000;
+        setDots('flight');
+        overlayEl.classList.remove('is-countdown');
+        statusLine.innerHTML = '<span>IN FLIGHT</span>';
+      }
+
+      function enterResult() {
+        phase = PHASE.RESULT;
+        phaseStart = performance.now();
+        currentValue = exitPoint;
+        valueText.textContent = formatValue(currentValue);
+        valueText.classList.add('crashed');
+        overlayEl.classList.remove('is-countdown');
+        setDots('result');
+        statusLine.innerHTML =
+          '<span class="flew"><svg width="14" height="14" viewBox="0 0 24 24" fill="none">' +
+          '<path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>FLEW AWAY!</span>';
+
+        pushHistory(currentValue);
+
+        if (bestValue === null || currentValue > bestValue) {
+          bestValue = currentValue;
+          bestValEl.textContent = formatValue(bestValue);
+        }
+
+        roundIndex += 1;
+      }
+
+      function setDots(active) {
+        dotCountdown.classList.toggle('active', active === 'countdown');
+        dotFlight.classList.toggle('active', active === 'flight');
+        dotResult.classList.toggle('active', active === 'result');
+      }
+
+      // ---------- update loop ----------
+      function update(now) {
+        const elapsed = now - phaseStart;
+
+        if (phase === PHASE.COUNTDOWN) {
+          const remaining = Math.max(0, COUNTDOWN_SECONDS - elapsed / 1000);
+          const remainingCeil = Math.ceil(remaining);
+          if (remainingCeil !== countdownRemaining && remainingCeil >= 0) {
+            countdownRemaining = remainingCeil;
+            bigCountdownEl.textContent = Math.max(0, countdownRemaining);
+          }
+          if (elapsed >= COUNTDOWN_SECONDS * 1000) {
+            enterFlight();
+          }
+        } else if (phase === PHASE.FLIGHT) {
+          const progress = Math.min(1, elapsed / flightDurationMs);
+          currentValue = Math.exp(GROWTH_RATE * (elapsed / 1000));
+          currentValue = Math.min(currentValue, exitPoint);
+
+          const tier = tierOf(currentValue);
+          valueText.classList.toggle('tier-mid', tier === 'mid');
+          valueText.classList.toggle('tier-high', tier === 'high');
+          valueText.textContent = formatValue(currentValue);
+
+          if (progress >= 1) {
+            enterResult();
+          }
+        } else if (phase === PHASE.RESULT) {
+          if (elapsed >= RESULT_HOLD_MS) {
+            enterCountdown();
+          }
+        }
+      }
+
+      // ---------- drawing ----------
+      function valueToProgress(v) {
+        const clamped = Math.max(1, Math.min(v, VISUAL_MAX_VALUE * 4));
+        return Math.min(1, Math.log(clamped) / Math.log(VISUAL_MAX_VALUE));
+      }
+
+      function curvePoint(progress) {
+        // progress in [0,1] -> normalized x,y within the plot area
+        const xNorm = progress;
+        const yNorm = Math.pow(progress, 0.82);
+        return { x: xNorm, y: yNorm };
+      }
+
+      function draw(now) {
+        ctx.clearRect(0, 0, w, h);
+
+        // padding for the plot area
+        const padL = 28, padR = 28, padT = 34, padB = 40;
+        const plotW = Math.max(10, w - padL - padR);
+        const plotH = Math.max(10, h - padT - padB);
+        const baseX = padL;
+        const baseY = h - padB;
+
+        drawGrid(baseX, baseY, plotW, plotH);
+
+        let progress = 0;
+        if (phase === PHASE.FLIGHT || phase === PHASE.RESULT) {
+          // Path length reflects the value itself (log scale), not time elapsed —
+          // a low round stops early on screen, a big run travels further.
+          progress = valueToProgress(currentValue);
+        } else {
+          progress = 0;
+        }
+
+        const tier = tierOf(currentValue);
+        const color = tierColor(tier);
+
+        if (progress > 0.001) {
+          drawFlightPath(baseX, baseY, plotW, plotH, progress, color, tier, phase);
+        } else {
+          drawIdleDot(baseX, baseY);
+        }
+      }
+
+      function drawGrid(baseX, baseY, plotW, plotH) {
+        const gridColor = getCss('--grid-line');
+        ctx.save();
+        ctx.strokeStyle = gridColor;
+        ctx.lineWidth = 1;
+
+        const cols = 8, rows = 6;
+        for (let i = 0; i <= cols; i++) {
+          const x = baseX - 6 + (plotW + 12) * (i / cols);
+          ctx.beginPath();
+          ctx.moveTo(x, 8);
+          ctx.lineTo(x, baseY + 6);
+          ctx.stroke();
+        }
+        for (let j = 0; j <= rows; j++) {
+          const y = 8 + (baseY - 8) * (j / rows);
+          ctx.beginPath();
+          ctx.moveTo(baseX - 14, y);
+          ctx.lineTo(baseX + plotW + 14, y);
+          ctx.stroke();
+        }
+
+        // baseline axis
+        ctx.strokeStyle = 'rgba(244,185,66,0.12)';
+        ctx.beginPath();
+        ctx.moveTo(baseX - 14, baseY);
+        ctx.lineTo(baseX + plotW + 14, baseY);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      function drawIdleDot(baseX, baseY) {
+        ctx.save();
+        ctx.fillStyle = getCss('--blue');
+        ctx.shadowColor = getCss('--blue');
+        ctx.shadowBlur = 14;
+        ctx.beginPath();
+        ctx.arc(baseX, baseY, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawFlightPath(baseX, baseY, plotW, plotH, progress, color, tier, currentPhase) {
+        const samples = 64;
+        const points = [];
+        for (let i = 0; i <= samples; i++) {
+          const p = (i / samples) * progress;
+          const cp = curvePoint(p);
+          const x = baseX + cp.x * plotW;
+          const y = baseY - cp.y * plotH;
+          points.push({ x, y });
+        }
+
+        const last = points[points.length - 1];
+
+        // filled area under the curve
+        ctx.save();
+        const grad = ctx.createLinearGradient(0, 0, 0, baseY);
+        grad.addColorStop(0, hexToRgba(color, 0.28));
+        grad.addColorStop(1, hexToRgba(color, 0.0));
+        ctx.beginPath();
+        ctx.moveTo(baseX, baseY);
+        points.forEach(pt => ctx.lineTo(pt.x, pt.y));
+        ctx.lineTo(last.x, baseY);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+
+        // glowing stroke line
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.shadowColor = color;
+        ctx.shadowBlur = currentPhase === 'result' ? 6 : 16;
+        ctx.beginPath();
+        points.forEach((pt, i) => {
+          if (i === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        });
+        ctx.stroke();
+        ctx.restore();
+
+        // trail particles
+        if (currentPhase === 'flight') {
+          trail.push({ x: last.x, y: last.y, born: performance.now() });
+          if (trail.length > 26) trail.shift();
+        }
+        ctx.save();
+        const nowT = performance.now();
+        trail.forEach(pt => {
+          const age = (nowT - pt.born) / 600;
+          if (age >= 1) return;
+          ctx.globalAlpha = (1 - age) * 0.5;
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 2.4 * (1 - age * 0.6), 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.restore();
+        trail = trail.filter(pt => (nowT - pt.born) < 600);
+
+        // aircraft icon
+        const prevIdx = Math.max(0, points.length - 3);
+        const prev = points[prevIdx];
+        const angle = Math.atan2(last.y - prev.y, last.x - prev.x);
+        drawAircraft(last.x, last.y, angle, color, currentPhase === 'result');
+      }
+
+      function hexToRgba(hex, alpha) {
+        let c = hex.trim();
+        if (c[0] !== '#') return c;
+        c = c.substring(1);
+        if (c.length === 3) {
+          c = c.split('').map(ch => ch + ch).join('');
+        }
+        const num = parseInt(c, 16);
+        const r = (num >> 16) & 255;
+        const g = (num >> 8) & 255;
+        const b = num & 255;
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+      }
+
+      function drawAircraft(x, y, angle, color, crashed) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+
+        const glowColor = crashed ? getCss('--red') : color;
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = crashed ? 12 : 20;
+
+        // swept wings (drawn first, behind the fuselage)
+        ctx.fillStyle = crashed ? getCss('--red') : hexToRgba('#f5f7fa', 0.9);
+        ctx.beginPath();
+        ctx.moveTo(-1, -2.2);
+        ctx.lineTo(-12, -10.5);
+        ctx.lineTo(-7.5, -1.5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(-1, 2.2);
+        ctx.lineTo(-12, 10.5);
+        ctx.lineTo(-7.5, 1.5);
+        ctx.closePath();
+        ctx.fill();
+
+        // tail fin
+        ctx.beginPath();
+        ctx.moveTo(-7, 0);
+        ctx.lineTo(-12, -4.5);
+        ctx.lineTo(-9.5, 0);
+        ctx.lineTo(-12, 4.5);
+        ctx.closePath();
+        ctx.fill();
+
+        // fuselage / nose
+        ctx.fillStyle = crashed ? getCss('--red') : '#f5f7fa';
+        ctx.beginPath();
+        ctx.moveTo(14, 0);
+        ctx.lineTo(-2, -3.2);
+        ctx.lineTo(-9, -1.6);
+        ctx.lineTo(-9, 1.6);
+        ctx.lineTo(-2, 3.2);
+        ctx.closePath();
+        ctx.fill();
+
+        // cockpit highlight
+        ctx.fillStyle = glowColor;
+        ctx.beginPath();
+        ctx.arc(6, 0, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // ---------- main loop ----------
+      function frame(now) {
+        update(now);
+        draw(now);
+        requestAnimationFrame(frame);
+      }
+
+      // ---------- init ----------
+      function init() {
+        resize();
+        renderHistory();
         enterCountdown();
+        requestAnimationFrame(frame);
       }
-    }
-  }
 
-  // ---------- drawing ----------
-  function valueToProgress(v){
-    const clamped = Math.max(1, Math.min(v, VISUAL_MAX_VALUE * 4));
-    return Math.min(1, Math.log(clamped) / Math.log(VISUAL_MAX_VALUE));
-  }
-
-  function curvePoint(progress){
-    // progress in [0,1] -> normalized x,y within the plot area
-    const xNorm = progress;
-    const yNorm = Math.pow(progress, 0.82);
-    return { x: xNorm, y: yNorm };
-  }
-
-  function draw(now){
-    ctx.clearRect(0, 0, w, h);
-
-    // padding for the plot area
-    const padL = 28, padR = 28, padT = 34, padB = 40;
-    const plotW = Math.max(10, w - padL - padR);
-    const plotH = Math.max(10, h - padT - padB);
-    const baseX = padL;
-    const baseY = h - padB;
-
-    drawGrid(baseX, baseY, plotW, plotH);
-
-    let progress = 0;
-    if (phase === PHASE.FLIGHT || phase === PHASE.RESULT){
-      // Path length reflects the value itself (log scale), not time elapsed —
-      // a low round stops early on screen, a big run travels further.
-      progress = valueToProgress(currentValue);
-    } else {
-      progress = 0;
-    }
-
-    const tier = tierOf(currentValue);
-    const color = tierColor(tier);
-
-    if (progress > 0.001){
-      drawFlightPath(baseX, baseY, plotW, plotH, progress, color, tier, phase);
-    } else {
-      drawIdleDot(baseX, baseY);
-    }
-  }
-
-  function drawGrid(baseX, baseY, plotW, plotH){
-    const gridColor = getCss('--grid-line');
-    ctx.save();
-    ctx.strokeStyle = gridColor;
-    ctx.lineWidth = 1;
-
-    const cols = 8, rows = 6;
-    for (let i = 0; i <= cols; i++){
-      const x = baseX - 6 + (plotW + 12) * (i / cols);
-      ctx.beginPath();
-      ctx.moveTo(x, 8);
-      ctx.lineTo(x, baseY + 6);
-      ctx.stroke();
-    }
-    for (let j = 0; j <= rows; j++){
-      const y = 8 + (baseY - 8) * (j / rows);
-      ctx.beginPath();
-      ctx.moveTo(baseX - 14, y);
-      ctx.lineTo(baseX + plotW + 14, y);
-      ctx.stroke();
-    }
-
-    // baseline axis
-    ctx.strokeStyle = 'rgba(244,185,66,0.12)';
-    ctx.beginPath();
-    ctx.moveTo(baseX - 14, baseY);
-    ctx.lineTo(baseX + plotW + 14, baseY);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function drawIdleDot(baseX, baseY){
-    ctx.save();
-    ctx.fillStyle = getCss('--blue');
-    ctx.shadowColor = getCss('--blue');
-    ctx.shadowBlur = 14;
-    ctx.beginPath();
-    ctx.arc(baseX, baseY, 4.5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawFlightPath(baseX, baseY, plotW, plotH, progress, color, tier, currentPhase){
-    const samples = 64;
-    const points = [];
-    for (let i = 0; i <= samples; i++){
-      const p = (i / samples) * progress;
-      const cp = curvePoint(p);
-      const x = baseX + cp.x * plotW;
-      const y = baseY - cp.y * plotH;
-      points.push({ x, y });
-    }
-
-    const last = points[points.length - 1];
-
-    // filled area under the curve
-    ctx.save();
-    const grad = ctx.createLinearGradient(0, 0, 0, baseY);
-    grad.addColorStop(0, hexToRgba(color, 0.28));
-    grad.addColorStop(1, hexToRgba(color, 0.0));
-    ctx.beginPath();
-    ctx.moveTo(baseX, baseY);
-    points.forEach(pt => ctx.lineTo(pt.x, pt.y));
-    ctx.lineTo(last.x, baseY);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
-    ctx.restore();
-
-    // glowing stroke line
-    ctx.save();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.lineJoin = 'round';
-    ctx.lineCap = 'round';
-    ctx.shadowColor = color;
-    ctx.shadowBlur = currentPhase === 'result' ? 6 : 16;
-    ctx.beginPath();
-    points.forEach((pt, i) => {
-      if (i === 0) ctx.moveTo(pt.x, pt.y);
-      else ctx.lineTo(pt.x, pt.y);
-    });
-    ctx.stroke();
-    ctx.restore();
-
-    // trail particles
-    if (currentPhase === 'flight'){
-      trail.push({ x: last.x, y: last.y, born: performance.now() });
-      if (trail.length > 26) trail.shift();
-    }
-    ctx.save();
-    const nowT = performance.now();
-    trail.forEach(pt => {
-      const age = (nowT - pt.born) / 600;
-      if (age >= 1) return;
-      ctx.globalAlpha = (1 - age) * 0.5;
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      ctx.arc(pt.x, pt.y, 2.4 * (1 - age * 0.6), 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.restore();
-    trail = trail.filter(pt => (nowT - pt.born) < 600);
-
-    // aircraft icon
-    const prevIdx = Math.max(0, points.length - 3);
-    const prev = points[prevIdx];
-    const angle = Math.atan2(last.y - prev.y, last.x - prev.x);
-    drawAircraft(last.x, last.y, angle, color, currentPhase === 'result');
-  }
-
-  function hexToRgba(hex, alpha){
-    let c = hex.trim();
-    if (c[0] !== '#') return c;
-    c = c.substring(1);
-    if (c.length === 3){
-      c = c.split('').map(ch => ch + ch).join('');
-    }
-    const num = parseInt(c, 16);
-    const r = (num >> 16) & 255;
-    const g = (num >> 8) & 255;
-    const b = num & 255;
-    return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-  }
-
-  function drawAircraft(x, y, angle, color, crashed){
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-
-    const glowColor = crashed ? getCss('--red') : color;
-    ctx.shadowColor = glowColor;
-    ctx.shadowBlur = crashed ? 12 : 20;
-
-    // swept wings (drawn first, behind the fuselage)
-    ctx.fillStyle = crashed ? getCss('--red') : hexToRgba('#f5f7fa', 0.9);
-    ctx.beginPath();
-    ctx.moveTo(-1, -2.2);
-    ctx.lineTo(-12, -10.5);
-    ctx.lineTo(-7.5, -1.5);
-    ctx.closePath();
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(-1, 2.2);
-    ctx.lineTo(-12, 10.5);
-    ctx.lineTo(-7.5, 1.5);
-    ctx.closePath();
-    ctx.fill();
-
-    // tail fin
-    ctx.beginPath();
-    ctx.moveTo(-7, 0);
-    ctx.lineTo(-12, -4.5);
-    ctx.lineTo(-9.5, 0);
-    ctx.lineTo(-12, 4.5);
-    ctx.closePath();
-    ctx.fill();
-
-    // fuselage / nose
-    ctx.fillStyle = crashed ? getCss('--red') : '#f5f7fa';
-    ctx.beginPath();
-    ctx.moveTo(14, 0);
-    ctx.lineTo(-2, -3.2);
-    ctx.lineTo(-9, -1.6);
-    ctx.lineTo(-9, 1.6);
-    ctx.lineTo(-2, 3.2);
-    ctx.closePath();
-    ctx.fill();
-
-    // cockpit highlight
-    ctx.fillStyle = glowColor;
-    ctx.beginPath();
-    ctx.arc(6, 0, 1.6, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  // ---------- main loop ----------
-  function frame(now){
-    update(now);
-    draw(now);
-    requestAnimationFrame(frame);
-  }
-
-  // ---------- init ----------
-  function init(){
-    resize();
-    enterCountdown();
-    requestAnimationFrame(frame);
-  }
-
-  init();
-})();
-</script>
+      init();
+    })();
+  </script>
 
 </body>
+
 </html>
