@@ -733,202 +733,15 @@
       let flightDurationMs = 0;
 
       let history = safeGet(STORAGE_KEYS.history, []);
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-dim);
-    }
+      let roundIndex = safeGet(STORAGE_KEYS.roundIndex, 1);
+      let bestValue = safeGet(STORAGE_KEYS.bestValue, null);
 
-    .phase-track {
-      display: flex;
-      gap: 4px;
-    }
-
-    .phase-dot {
-      width: 22px;
-      height: 3px;
-      border-radius: 2px;
-      background: var(--border);
-      transition: background .2s ease;
-    }
-
-    .phase-dot.active {
-      background: var(--gold-2);
-      box-shadow: 0 0 6px var(--gold-2);
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="app">
-
-    <div class="logo">
-      <div class="logo-row">
-        <svg class="wing" width="52" height="30" viewBox="0 0 52 30" fill="none">
-          <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad1)" />
-          <defs>
-            <linearGradient id="wingGrad1" x1="0" y1="0" x2="52" y2="0">
-              <stop offset="0" stop-color="#c8871a" />
-              <stop offset="0.5" stop-color="#f4b942" />
-              <stop offset="1" stop-color="#ffe49a" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <div class="logo-luck"></br>LUCK</div>
-        <svg class="wing right" width="52" height="30" viewBox="0 0 52 30" fill="none">
-          <path d="M52 4L18 13L28 16L2 22L14 25L44 15" fill="url(#wingGrad2)" />
-          <defs>
-            <linearGradient id="wingGrad2" x1="0" y1="0" x2="52" y2="0">
-              <stop offset="0" stop-color="#c8871a" />
-              <stop offset="0.5" stop-color="#f4b942" />
-              <stop offset="1" stop-color="#ffe49a" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-      <div class="logo-flight">FLIGHT</div>
-    </div>
-
-    <div class="frame-deco">
-      <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
-    </div>
-
-    <div class="panel" id="panel">
-      <canvas id="canvas"></canvas>
-
-      <div class="overlay" id="overlay">
-        <div class="big-countdown-wrap">
-          <div class="countdown-label">NEXT ROUND IN</div>
-          <div class="big-countdown" id="bigCountdown">5</div>
-        </div>
-        <div class="value" id="valueText">1.00x</div>
-        <div class="status-line" id="statusLine">
-          <span>IN FLIGHT</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="frame-deco">
-      <span class="deco-line"></span><span class="deco-dot"></span><span class="deco-line"></span>
-    </div>
-
-    <div class="history" id="history"></div>
-
-    <div class="gift-section">
-      <div class="gift-label"><span class="gift-dash"></span>CHOOSE GIFT POWER<span class="gift-dash"></span></div>
-
-      <div class="gift-row" id="giftRow">
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(34,197,94,0.14);">
-            <img src="gift/rose.webp" alt="Rose" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">Rose</div>
-          <div class="gift-value" style="color:#22c55e;">1.5x</div>
-        </div>
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(34,211,238,0.14);">
-            <img src="gift/tiktok.webp" alt="TikTok" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">TikTok</div>
-          <div class="gift-value" style="color:#22d3ee;">2x</div>
-        </div>
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(236,72,153,0.14);">
-            <img src="gift/heartMe.webp" alt="Heart Me" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">Heart Me</div>
-          <div class="gift-value" style="color:#ec4899;">3x</div>
-        </div>
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(168,85,247,0.14);">
-            <img src="gift/donut.webp" alt="Donut" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">Donut</div>
-          <div class="gift-value" style="color:#a855f7;">5x</div>
-        </div>
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(249,115,22,0.14);">
-            <img src="gift/fingerHeart.webp" alt="Finger Heart" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">Finger Heart</div>
-          <div class="gift-value" style="color:#f97316;">8x</div>
-        </div>
-
-        <div class="gift-card">
-          <div class="gift-icon-wrap" style="background:rgba(234,179,8,0.14);">
-            <img src="gift/lion.webp" alt="Lion" style="width: 26px; height: 26px;">
-          </div>
-          <div class="gift-name">Lion</div>
-          <div class="gift-value" style="color:#eab308;">25x</div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="readout">
-      <div class="readout-item">
-        <div class="readout-val" id="roundNum">#1</div>
-      </div>
-      <div class="phase-track">
-        <div class="phase-dot" id="dotCountdown"></div>
-        <div class="phase-dot" id="dotFlight"></div>
-        <div class="phase-dot" id="dotResult"></div>
-      </div>
-      <div class="readout-item" style="align-items:flex-end;">
-        <div class="readout-label">Best This Session</div>
-        <div class="readout-val" id="bestVal">—</div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    (function () {
-      "use strict";
-
-      // ---------- DOM ----------
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      const panel = document.getElementById('panel');
-      const valueText = document.getElementById('valueText');
-      const statusLine = document.getElementById('statusLine');
-      const overlayEl = document.getElementById('overlay');
-      const bigCountdownEl = document.getElementById('bigCountdown');
-      const historyEl = document.getElementById('history');
-      const roundNumEl = document.getElementById('roundNum');
-      const bestValEl = document.getElementById('bestVal');
-      const dotCountdown = document.getElementById('dotCountdown');
-      const dotFlight = document.getElementById('dotFlight');
-      const dotResult = document.getElementById('dotResult');
-
-      // ---------- constants ----------
-      const PHASE = { COUNTDOWN: 'countdown', FLIGHT: 'flight', RESULT: 'result' };
-      const COUNTDOWN_SECONDS = 5;
-      const RESULT_HOLD_MS = 2000;
-      const GROWTH_RATE = 0.16; // controls how fast the score climbs
-      const VISUAL_MAX_VALUE = 100; // value that maps to the far edge of the panel on a log scale
-
-      // ---------- state ----------
-      let phase = PHASE.COUNTDOWN;
-      let phaseStart = performance.now();
-      let countdownRemaining = COUNTDOWN_SECONDS;
-      let currentValue = 1.00;
-      let exitPoint = 1.00;
-      let flightDurationMs = 0;
-      let roundIndex = 1;
-      let bestValue = null;
-      const HISTORY_KEY = "luckFlightHistory";
-      let history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
       let dpr = Math.max(1, window.devicePixelRatio || 1);
       let w = 0, h = 0;
 
       // trail particles behind the aircraft
       let trail = [];
+      let litCount = 0;
 
       // ---------- helpers ----------
       function tierOf(v) {
@@ -963,8 +776,90 @@
       function formatValue(v) {
         return v.toFixed(2) + 'x';
       }
-      function saveHistory() {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+
+      // ---------- history bar ----------
+      function pushHistory(v) {
+        history.unshift({
+          round: roundIndex,
+          value: v,
+          time: Date.now()
+        });
+
+        if (history.length > 20) {
+          history.pop();
+        }
+
+        safeSet(STORAGE_KEYS.history, history);
+        renderHistory();
+      }
+
+      function renderHistory() {
+        historyEl.innerHTML = '';
+        history.forEach(item => {
+          const tier = tierOf(item.value);
+          const chip = document.createElement('div');
+          chip.className = 'chip tier-' + tier;
+          chip.textContent = formatValue(item.value);
+          historyEl.appendChild(chip);
+        });
+      }
+
+      // ---------- gift power tier lighting ----------
+      // As the value climbs, gift cards light up left-to-right in the order
+      // of their threshold, so viewers see live which "power" has been reached.
+      function updateGiftTiers(v) {
+        let newLitCount = 0;
+        giftCards.forEach(g => {
+          if (v >= g.threshold) newLitCount++;
+        });
+
+        giftCards.forEach((g, i) => {
+          const isLit = i < newLitCount;
+          const isCurrent = i === newLitCount - 1;
+          g.el.classList.toggle('gift-lit', isLit);
+          g.el.classList.toggle('gift-lit-current', isCurrent);
+          if (isLit) {
+            g.el.style.borderColor = g.color;
+            g.el.style.boxShadow = '0 0 10px ' + g.color + (isCurrent ? '99' : '55');
+            g.el.style.background = g.color + '14';
+          } else {
+            g.el.style.borderColor = '';
+            g.el.style.boxShadow = '';
+            g.el.style.background = '';
+          }
+        });
+
+        litCount = newLitCount;
+      }
+
+      function resetGiftTiers() {
+        giftCards.forEach(g => {
+          g.el.classList.remove('gift-lit', 'gift-lit-current');
+          g.el.style.borderColor = '';
+          g.el.style.boxShadow = '';
+          g.el.style.background = '';
+        });
+        litCount = 0;
+      }
+
+      // ---------- mega flash + confetti for big rounds ----------
+      function triggerMegaFlash() {
+        panel.classList.add('mega-flash');
+        setTimeout(() => panel.classList.remove('mega-flash'), 700);
+        spawnConfetti();
+      }
+
+      function spawnConfetti() {
+        const colors = ['#f4b942', '#ffe49a', '#ff2d78', '#a855f7', '#2e9bff'];
+        for (let i = 0; i < 16; i++) {
+          const el = document.createElement('div');
+          el.className = 'confetti-piece';
+          el.style.left = (Math.random() * 100) + '%';
+          el.style.background = colors[Math.floor(Math.random() * colors.length)];
+          el.style.animationDelay = (Math.random() * 0.15) + 's';
+          panel.appendChild(el);
+          setTimeout(() => el.remove(), 1300);
+        }
       }
 
       // ---------- canvas sizing ----------
@@ -980,46 +875,6 @@
       window.addEventListener('resize', resize);
       window.addEventListener('orientationchange', resize);
 
-      // ---------- history bar ----------
-      function pushHistory(v) {
-        history.unshift({
-          round: roundIndex,
-          value: v,
-          time: Date.now()
-        });
-
-        if (history.length > 20) {
-          history.pop();
-        }
-
-        saveHistory();
-        renderHistory();
-      }
-
-      function saveHistory() {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-      }
-
-      function renderHistory() {
-
-        historyEl.innerHTML = '';
-
-        history.forEach(item => {
-
-          const tier = tierOf(item.value);
-
-          const chip = document.createElement('div');
-
-          chip.className = 'chip tier-' + tier;
-
-          chip.textContent = formatValue(item.value);
-
-          historyEl.appendChild(chip);
-
-        });
-
-      }
-
       // ---------- phase transitions ----------
       function enterCountdown() {
         phase = PHASE.COUNTDOWN;
@@ -1027,6 +882,7 @@
         countdownRemaining = COUNTDOWN_SECONDS;
         currentValue = 1.00;
         trail = [];
+        resetGiftTiers();
         setDots('countdown');
         valueText.textContent = formatValue(1.00);
         valueText.classList.remove('crashed', 'tier-mid', 'tier-high');
@@ -1058,14 +914,27 @@
           '<path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
           '</svg>FLEW AWAY!</span>';
 
+        updateGiftTiers(currentValue);
+
+        // Short haptic pulse instead of a sound effect.
+        if (navigator.vibrate) {
+          navigator.vibrate(currentValue >= megaFlashThreshold ? [40, 40, 40, 40, 80] : [35]);
+        }
+
+        if (currentValue >= megaFlashThreshold) {
+          triggerMegaFlash();
+        }
+
         pushHistory(currentValue);
 
         if (bestValue === null || currentValue > bestValue) {
           bestValue = currentValue;
+          safeSet(STORAGE_KEYS.bestValue, bestValue);
           bestValEl.textContent = formatValue(bestValue);
         }
 
         roundIndex += 1;
+        safeSet(STORAGE_KEYS.roundIndex, roundIndex);
       }
 
       function setDots(active) {
@@ -1097,6 +966,11 @@
           valueText.classList.toggle('tier-mid', tier === 'mid');
           valueText.classList.toggle('tier-high', tier === 'high');
           valueText.textContent = formatValue(currentValue);
+
+          const newLitCount = giftCards.filter(g => currentValue >= g.threshold).length;
+          if (newLitCount !== litCount) {
+            updateGiftTiers(currentValue);
+          }
 
           if (progress >= 1) {
             enterResult();
@@ -1342,12 +1216,26 @@
       function init() {
         resize();
         renderHistory();
+        if (bestValue !== null) {
+          bestValEl.textContent = formatValue(bestValue);
+        }
         enterCountdown();
         requestAnimationFrame(frame);
       }
 
       init();
     })();
+  </script>
+
+  <script>
+    // ---------- PWA service worker ----------
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(() => {
+          // Offline caching is a bonus, not required for the game to run.
+        });
+      });
+    }
   </script>
 
 </body>
