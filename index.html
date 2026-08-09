@@ -59,8 +59,8 @@
       height: 100dvh;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 22px 10px 10px;
+      gap: 5px;
+      padding: 22px 10px 8px;
     }
 
     /* ---------- Logo ---------- */
@@ -106,6 +106,15 @@
       letter-spacing: 4px;
       color: #f6f3ea;
       margin-top: 1px;
+    }
+
+    .entertainment-note {
+      margin-top: 3px;
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--text-faint);
     }
 
     /* ---------- decorative connectors above/below the frame ---------- */
@@ -239,8 +248,9 @@
       text-transform: uppercase;
       color: var(--text-dim);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
 
     .status-line .flew {
@@ -252,6 +262,14 @@
 
     .status-line svg {
       display: block;
+    }
+
+    .encourage-msg {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: none;
+      font-weight: 600;
+      color: var(--text-dim);
     }
 
     .big-countdown-wrap {
@@ -327,6 +345,33 @@
       100% { transform: translateY(220px) rotate(360deg); opacity: 0; }
     }
 
+    .milestone-badge {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--mono);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      color: #1a1206;
+      background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+      padding: 5px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(244, 185, 66, 0.6);
+      z-index: 5;
+      animation: milestonePop 1.8s ease forwards;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    @keyframes milestonePop {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.85); }
+      12% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+      82% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-6px) scale(0.95); }
+    }
+
     /* ---------- History bar ---------- */
     .history {
       display: flex;
@@ -388,7 +433,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       padding-top: 0;
     }
 
@@ -427,7 +472,7 @@
       flex-direction: column;
       align-items: center;
       gap: 3px;
-      padding: 6px 2px 7px;
+      padding: 5px 2px 6px;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 9px;
@@ -524,6 +569,163 @@
       background: var(--gold-2);
       box-shadow: 0 0 6px var(--gold-2);
     }
+
+    /* ---------- Predictors / Gift-givers stat panels ---------- */
+    .stats-row {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .stat-panel {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px 7px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .stat-header {
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--gold-2);
+      text-align: center;
+    }
+
+    .stat-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-height: 14px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      color: var(--text);
+    }
+
+    .stat-rank {
+      flex: 0 0 auto;
+      width: 11px;
+      font-family: var(--mono);
+      color: var(--text-faint);
+      font-size: 9px;
+    }
+
+    .stat-row svg.crown {
+      flex: 0 0 auto;
+      width: 11px;
+      height: 11px;
+      filter: drop-shadow(0 0 3px rgba(244, 185, 66, 0.7));
+    }
+
+    .stat-name {
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .stat-count {
+      flex: 0 0 auto;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--gold-2);
+      background: rgba(244, 185, 66, 0.1);
+      border-radius: 5px;
+      padding: 1px 4px;
+    }
+
+    .stat-empty {
+      font-size: 9px;
+      color: var(--text-faint);
+      text-align: center;
+      padding: 2px 0;
+    }
+
+    .stat-add {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .stat-add input {
+      flex: 1 1 auto;
+      min-width: 0;
+      background: #050505;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 9.5px;
+      padding: 4px 6px;
+      outline: none;
+      font-family: var(--sans);
+    }
+
+    .stat-add input::placeholder {
+      color: var(--text-faint);
+    }
+
+    .stat-add input:focus {
+      border-color: var(--gold-2);
+    }
+
+    .stat-add button {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(244, 185, 66, 0.55);
+      background: linear-gradient(180deg, var(--gold-1), var(--gold-2));
+      color: #241a05;
+      font-weight: 900;
+      font-size: 13px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .clear-stats-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 8px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-faint);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .clear-stats-btn:active {
+      background: rgba(244, 185, 66, 0.08);
+    }
+
+    .clear-stats-btn svg {
+      width: 11px;
+      height: 11px;
+      flex: 0 0 auto;
+    }
   </style>
 </head>
 
@@ -556,6 +758,7 @@
         </svg>
       </div>
       <div class="logo-flight">FLIGHT</div>
+      <div class="entertainment-note">Burudani Tu • Hakuna Malipo Halisi</div>
     </div>
 
     <div class="frame-deco">
@@ -576,7 +779,7 @@
         </div>
         <div class="value" id="valueText">1.00x</div>
         <div class="status-line" id="statusLine">
-          <span>IN FLIGHT</span>
+          <span id="flightHypeText">INAPAA...</span>
         </div>
       </div>
     </div>
@@ -659,6 +862,31 @@
       </div>
     </div>
 
+    <div class="stats-row">
+      <div class="stat-panel">
+        <div class="stat-header">Watabiri</div>
+        <div class="stat-list" id="predictorsList"></div>
+        <div class="stat-add">
+          <input type="text" id="predictorInput" placeholder="Jina..." maxlength="18">
+          <button id="predictorAddBtn" type="button" aria-label="Ongeza mtabiri">+</button>
+        </div>
+      </div>
+
+      <div class="stat-panel">
+        <div class="stat-header">Watoa Gift</div>
+        <div class="stat-list" id="giftGiversList"></div>
+        <div class="stat-add">
+          <input type="text" id="giftGiverInput" placeholder="Jina..." maxlength="18">
+          <button id="giftGiverAddBtn" type="button" aria-label="Ongeza mtoa gift">+</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="clear-stats-btn" id="clearStatsBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 7H20M9 7V4H15V7M6 7L7 20H17L18 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Anza Siku Mpya
+    </button>
+
   </div>
 
   <script>
@@ -679,6 +907,15 @@
       const dotCountdown = document.getElementById('dotCountdown');
       const dotFlight = document.getElementById('dotFlight');
       const dotResult = document.getElementById('dotResult');
+
+      const predictorsListEl = document.getElementById('predictorsList');
+      const giftGiversListEl = document.getElementById('giftGiversList');
+      const predictorInput = document.getElementById('predictorInput');
+      const giftGiverInput = document.getElementById('giftGiverInput');
+      const predictorAddBtn = document.getElementById('predictorAddBtn');
+      const giftGiverAddBtn = document.getElementById('giftGiverAddBtn');
+      const clearStatsBtn = document.getElementById('clearStatsBtn');
+
       const giftCards = Array.from(document.querySelectorAll('.gift-card'))
         .map(card => ({
           el: card,
@@ -696,11 +933,24 @@
       const RESULT_HOLD_MS = 2000;
       const GROWTH_RATE = 0.16; // controls how fast the score climbs
       const VISUAL_MAX_VALUE = 100; // value that maps to the far edge of the panel on a log scale
+      const LOW_CRASH_THRESHOLD = 1.5; // below this, show an encouraging note instead of nothing
+      const HYPE_INTERVAL_MS = 1100;
+      const HYPE_PHRASES = [
+        'INAPAA...',
+        'TWENDE JUU!',
+        'BADO INAPANDA...',
+        'SHIKILIA...',
+        'KARIBU KUFIKA...',
+        'MOTOO!',
+        'HAIACHI KUPANDA...'
+      ];
 
       const STORAGE_KEYS = {
         history: 'luckFlightHistory',
         roundIndex: 'luckFlightRoundIndex',
-        bestValue: 'luckFlightBestValue'
+        bestValue: 'luckFlightBestValue',
+        predictors: 'luckFlightPredictors',
+        giftGivers: 'luckFlightGiftGivers'
       };
 
       // ---------- safe storage helpers ----------
@@ -735,6 +985,8 @@
       let history = safeGet(STORAGE_KEYS.history, []);
       let roundIndex = safeGet(STORAGE_KEYS.roundIndex, 1);
       let bestValue = safeGet(STORAGE_KEYS.bestValue, null);
+      let predictors = safeGet(STORAGE_KEYS.predictors, {});
+      let giftGivers = safeGet(STORAGE_KEYS.giftGivers, {});
 
       let dpr = Math.max(1, window.devicePixelRatio || 1);
       let w = 0, h = 0;
@@ -742,6 +994,8 @@
       // trail particles behind the aircraft
       let trail = [];
       let litCount = 0;
+      let hypeIndex = 0;
+      let hypeLastChange = 0;
 
       // ---------- helpers ----------
       function tierOf(v) {
@@ -775,6 +1029,12 @@
 
       function formatValue(v) {
         return v.toFixed(2) + 'x';
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
       }
 
       // ---------- history bar ----------
@@ -862,6 +1122,94 @@
         }
       }
 
+      // Every 50 completed rounds, celebrate the milestone with a small badge + confetti.
+      const MILESTONE_INTERVAL = 50;
+      function triggerMilestone(completedRound) {
+        const badge = document.createElement('div');
+        badge.className = 'milestone-badge';
+        badge.textContent = 'RAUNDI #' + completedRound + '!';
+        panel.appendChild(badge);
+        spawnConfetti();
+        setTimeout(() => badge.remove(), 1800);
+      }
+
+      // ---------- predictors / gift-givers leaderboards ----------
+      // Names are matched case-insensitively (trimmed) so "Juma" and "juma "
+      // count as the same person; the most-repeated name each day gets the crown.
+      function addName(store, storageKey, rawName, renderFn) {
+        const trimmed = (rawName || '').trim();
+        if (!trimmed) return;
+        const normKey = trimmed.toLowerCase();
+        if (store[normKey]) {
+          store[normKey].count += 1;
+        } else {
+          store[normKey] = { display: trimmed, count: 1 };
+        }
+        safeSet(storageKey, store);
+        renderFn();
+      }
+
+      function renderStatList(store, listEl) {
+        listEl.innerHTML = '';
+        const entries = Object.values(store).sort((a, b) => b.count - a.count).slice(0, 3);
+
+        if (entries.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'stat-empty';
+          empty.textContent = 'Bado hakuna';
+          listEl.appendChild(empty);
+          return;
+        }
+
+        entries.forEach((entry, i) => {
+          const row = document.createElement('div');
+          row.className = 'stat-row';
+
+          const rankHtml = i === 0
+            ? '<svg class="crown" viewBox="0 0 24 24" fill="none"><path d="M3 8L7.5 11.5L12 4L16.5 11.5L21 8L19 18H5L3 8Z" fill="#f4b942"/></svg>'
+            : '<span class="stat-rank">' + (i + 1) + '</span>';
+
+          row.innerHTML =
+            rankHtml +
+            '<span class="stat-name">' + escapeHtml(entry.display) + '</span>' +
+            '<span class="stat-count">' + entry.count + '</span>';
+
+          listEl.appendChild(row);
+        });
+      }
+
+      function renderPredictors() { renderStatList(predictors, predictorsListEl); }
+      function renderGiftGivers() { renderStatList(giftGivers, giftGiversListEl); }
+
+      predictorAddBtn.addEventListener('click', () => {
+        addName(predictors, STORAGE_KEYS.predictors, predictorInput.value, renderPredictors);
+        predictorInput.value = '';
+        predictorInput.focus();
+      });
+      predictorInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') predictorAddBtn.click();
+      });
+
+      giftGiverAddBtn.addEventListener('click', () => {
+        addName(giftGivers, STORAGE_KEYS.giftGivers, giftGiverInput.value, renderGiftGivers);
+        giftGiverInput.value = '';
+        giftGiverInput.focus();
+      });
+      giftGiverInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') giftGiverAddBtn.click();
+      });
+
+      clearStatsBtn.addEventListener('click', () => {
+        const confirmed = window.confirm('Futa orodha ya Watabiri na Watoa Gift ili kuanza siku mpya? Hatua hii haiwezi kurudishwa.');
+        if (!confirmed) return;
+        predictors = {};
+        giftGivers = {};
+        safeSet(STORAGE_KEYS.predictors, predictors);
+        safeSet(STORAGE_KEYS.giftGivers, giftGivers);
+        renderPredictors();
+        renderGiftGivers();
+      });
+
       // ---------- canvas sizing ----------
       function resize() {
         dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -898,7 +1246,9 @@
         flightDurationMs = (Math.log(exitPoint) / GROWTH_RATE) * 1000;
         setDots('flight');
         overlayEl.classList.remove('is-countdown');
-        statusLine.innerHTML = '<span>IN FLIGHT</span>';
+        hypeIndex = 0;
+        hypeLastChange = performance.now();
+        statusLine.innerHTML = '<span id="flightHypeText">' + HYPE_PHRASES[0] + '</span>';
       }
 
       function enterResult() {
@@ -909,10 +1259,17 @@
         valueText.classList.add('crashed');
         overlayEl.classList.remove('is-countdown');
         setDots('result');
-        statusLine.innerHTML =
+
+        let flewHtml =
           '<span class="flew"><svg width="14" height="14" viewBox="0 0 24 24" fill="none">' +
           '<path d="M12 2L12 22M12 2L6 8M12 2L18 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
           '</svg>FLEW AWAY!</span>';
+
+        if (currentValue < LOW_CRASH_THRESHOLD) {
+          flewHtml += '<span class="encourage-msg">Karibu raundi ijayo — bahati inakuja!</span>';
+        }
+
+        statusLine.innerHTML = flewHtml;
 
         updateGiftTiers(currentValue);
 
@@ -923,6 +1280,10 @@
 
         if (currentValue >= megaFlashThreshold) {
           triggerMegaFlash();
+        }
+
+        if (roundIndex % MILESTONE_INTERVAL === 0) {
+          triggerMilestone(roundIndex);
         }
 
         pushHistory(currentValue);
@@ -966,6 +1327,13 @@
           valueText.classList.toggle('tier-mid', tier === 'mid');
           valueText.classList.toggle('tier-high', tier === 'high');
           valueText.textContent = formatValue(currentValue);
+
+          if (now - hypeLastChange >= HYPE_INTERVAL_MS) {
+            hypeLastChange = now;
+            hypeIndex = (hypeIndex + 1) % HYPE_PHRASES.length;
+            const hypeEl = document.getElementById('flightHypeText');
+            if (hypeEl) hypeEl.textContent = HYPE_PHRASES[hypeIndex];
+          }
 
           const newLitCount = giftCards.filter(g => currentValue >= g.threshold).length;
           if (newLitCount !== litCount) {
@@ -1216,6 +1584,8 @@
       function init() {
         resize();
         renderHistory();
+        renderPredictors();
+        renderGiftGivers();
         if (bestValue !== null) {
           bestValEl.textContent = formatValue(bestValue);
         }
